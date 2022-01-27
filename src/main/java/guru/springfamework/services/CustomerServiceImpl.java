@@ -24,6 +24,17 @@ public class CustomerServiceImpl implements CustomerService {
         this.customerRepository = customerRepository;
     }
 
+    // common code put into method
+    private CustomerDTO saveAndReturnDTO(Customer customer) {
+        Customer savedCustomer = customerRepository.save(customer);
+
+        CustomerDTO returnDTO = customerMapper.customerToCustomerDTO(savedCustomer);
+
+        returnDTO.setCustomerUrl("/api/v1/customer/" + savedCustomer.getId());
+
+        return returnDTO;
+    }
+
     @Override
     public List<CustomerDTO> getAllCustomers() {
         return customerRepository
@@ -46,15 +57,15 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
+        return saveAndReturnDTO(customerMapper.customerDtoToCustomer(customerDTO));
+    }
+
+    @Override
+    public CustomerDTO saveCustomerByDTO(Long id, CustomerDTO customerDTO) {
         Customer customer = customerMapper.customerDtoToCustomer(customerDTO);
+        customer.setId(id);
 
-        Customer savedCustomer = customerRepository.save(customer);
-
-        CustomerDTO returnDTO = customerMapper.customerToCustomerDTO(savedCustomer);
-
-        returnDTO.setCustomerUrl("/api/v1/customer/" + savedCustomer.getId());
-
-        return returnDTO;
+        return saveAndReturnDTO(customer);
     }
 
 }
