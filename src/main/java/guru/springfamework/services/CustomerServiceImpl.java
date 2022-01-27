@@ -25,20 +25,16 @@ public class CustomerServiceImpl implements CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    private CustomerDTO saveAndReturnDTO(Customer customer) {
-        Customer savedCustomer = customerRepository.save(customer);
-
-        CustomerDTO returnDTO = customerMapper.customerToCustomerDTO(savedCustomer);
-
-        returnDTO.setCustomerUrl(getCustomerUrl(savedCustomer.getId()));
-
-        return returnDTO;
-    }
-
-
     // as read in Q&A section, potentially not good practice to add dependency on controller layer in service layer
     private String getCustomerUrl(Long id) {
         return CustomerController.BASE_URL + "/" + id;
+    }
+
+    private CustomerDTO saveAndReturnDTO(Customer customer) {
+        Customer savedCustomer = customerRepository.save(customer);
+        CustomerDTO returnDTO = customerMapper.customerToCustomerDTO(savedCustomer);
+        returnDTO.setCustomerUrl(getCustomerUrl(savedCustomer.getId()));
+        return returnDTO;
     }
 
     @Override
@@ -68,12 +64,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
-        return saveAndReturnDTO(customerMapper.customerDtoToCustomer(customerDTO));
+        return saveAndReturnDTO(customerMapper.customerDTOToCustomer(customerDTO));
     }
 
     @Override
     public CustomerDTO saveCustomerByDTO(Long id, CustomerDTO customerDTO) {
-        Customer customer = customerMapper.customerDtoToCustomer(customerDTO);
+        Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customer.setId(id);
 
         return saveAndReturnDTO(customer);
