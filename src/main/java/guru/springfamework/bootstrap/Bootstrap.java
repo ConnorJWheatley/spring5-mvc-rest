@@ -49,7 +49,7 @@ public class Bootstrap implements CommandLineRunner{
         categoryRepository.save(exotic);
         categoryRepository.save(nuts);
 
-        System.out.println("Data Loaded = " + categoryRepository.count());
+        System.out.println("Categories Loaded = " + categoryRepository.count());
     }
 
     public void loadCustomers() {
@@ -60,9 +60,9 @@ public class Bootstrap implements CommandLineRunner{
         customerRepository.save(customer1);
 
         Customer customer2 = new Customer();
-        customer1.setId(2L);
-        customer1.setFirstName("Sam");
-        customer1.setLastName("Axe");
+        customer2.setId(2L);
+        customer2.setFirstName("Sam");
+        customer2.setLastName("Axe");
         customerRepository.save(customer2);
 
         System.out.println("Customers Loaded = " + customerRepository.count());
