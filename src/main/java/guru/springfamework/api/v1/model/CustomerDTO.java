@@ -4,15 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 /**
  * @Author: Connor Wheatley
- * @Date: 26/01/2022 16:50
+ * @Date: 27/01/2022 09:35
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryListDTO {
-    List<CategoryDTO> categories;
+public class CustomerDTO {
+
+    private String firstName;
+    private String lastName;
+    private String customerUrl;
 }

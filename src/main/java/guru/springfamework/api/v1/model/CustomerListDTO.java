@@ -8,11 +8,11 @@ import java.util.List;
 
 /**
  * @Author: Connor Wheatley
- * @Date: 26/01/2022 16:50
+ * @Date: 27/01/2022 09:37
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryListDTO {
-    List<CategoryDTO> categories;
+public class CustomerListDTO {
+    List<CustomerDTO> customers;
 }
