@@ -30,7 +30,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         CustomerDTO returnDTO = customerMapper.customerToCustomerDTO(savedCustomer);
 
-        returnDTO.setCustomerUrl("/api/v1/customer/" + savedCustomer.getId());
+        returnDTO.setCustomerUrl(getCustomerUrl(savedCustomer.getId()));
 
         return returnDTO;
     }
@@ -38,7 +38,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     // as read in Q&A section, potentially not good practice to add dependency on controller layer in service layer
     private String getCustomerUrl(Long id) {
-        return CustomerController.BASE_URL + "?" + id;
+        return CustomerController.BASE_URL + "/" + id;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class CustomerServiceImpl implements CustomerService {
                     customerDTO.setCustomerUrl(getCustomerUrl(id));
                     return customerDTO;
                 })
-                .orElseThrow(RuntimeException::new); //todo implement better exception handling
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class CustomerServiceImpl implements CustomerService {
 
             return returnDto;
 
-        }).orElseThrow(RuntimeException::new); //todo implement better exception handling;
+        }).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override

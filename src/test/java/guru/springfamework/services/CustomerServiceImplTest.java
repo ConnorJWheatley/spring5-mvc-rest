@@ -31,7 +31,7 @@ public class CustomerServiceImplTest {
 
     CustomerMapper customerMapper = CustomerMapper.INSTANCE;
 
-    CustomerServiceImpl customerService;
+    CustomerService customerService;
 
     @Before
     public void setUp() throws Exception {
@@ -88,7 +88,7 @@ public class CustomerServiceImplTest {
         Customer savedCustomer = new Customer();
         savedCustomer.setFirstName(customerDTO.getFirstName());
         savedCustomer.setLastName(customerDTO.getLastName());
-        savedCustomer.setId(1l);
+        savedCustomer.setId(1L);
 
         when(customerRepository.save(any(Customer.class))).thenReturn(savedCustomer);
 
@@ -97,7 +97,7 @@ public class CustomerServiceImplTest {
 
         //then
         assertEquals(customerDTO.getFirstName(), savedDto.getFirstName());
-        assertEquals(CustomerController.BASE_URL + "/1", savedDto.getCustomerUrl());
+        assertEquals("/api/v1/customers/1", savedDto.getCustomerUrl());
     }
 
     @Test
@@ -119,7 +119,7 @@ public class CustomerServiceImplTest {
 
         //then
         assertEquals(customerDTO.getFirstName(), savedDto.getFirstName());
-        assertEquals(CustomerController.BASE_URL + "/1", savedDto.getCustomerUrl());
+        assertEquals("/api/v1/customers/1", savedDto.getCustomerUrl());
     }
 
     @Test
