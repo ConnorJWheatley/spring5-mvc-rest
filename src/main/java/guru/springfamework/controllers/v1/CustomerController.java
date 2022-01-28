@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * @Author: Connor Wheatley
  * @Date: 27/01/2022 10:19
  */
-@Tag(name = "customer-controller", description = "This is the Customer controller")
+@Tag(name = "customer-controller", description = "This is my Customer API")
 @RestController
 @RequestMapping(CustomerController.BASE_URL)
 public class CustomerController {
