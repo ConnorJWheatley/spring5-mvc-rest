@@ -2,13 +2,14 @@ package guru.springfamework.services;
 
 import guru.springfamework.api.v1.mapper.VendorMapper;
 import guru.springfamework.api.v1.model.VendorDTO;
-import guru.springfamework.controllers.v1.CustomerController;
+import guru.springfamework.api.v1.model.VendorListDTO;
 import guru.springfamework.controllers.v1.VendorController;
 import guru.springfamework.domain.Vendor;
 import guru.springfamework.repositories.VendorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author: Connor Wheatley
@@ -38,32 +39,57 @@ public class VendorServiceImpl implements VendorService {
     }
 
     @Override
-    public List<VendorDTO> getAllVendors() {
-        return null;
+    public VendorListDTO getAllVendors() {
+        List<VendorDTO> vendorDTOS = vendorRepository
+                .findAll()
+                .stream()
+                .map(vendor -> {
+                    VendorDTO vendorDTO = vendorMapper.vendorToVendorDTO(vendor);
+                    vendorDTO.setVendorUrl(getVendorUrl(vendor.getId()));
+                    return vendorDTO;
+                })
+                .collect(Collectors.toList());
+
+        return new VendorListDTO(vendorDTOS);
     }
 
     @Override
     public VendorDTO getVendorById(Long id) {
-        return null;
+        return vendorRepository.findById(id)
+                .map(vendorMapper::vendorToVendorDTO)
+                .map(vendorDTO -> {
+                    vendorDTO.setVendorUrl(getVendorUrl(id));
+                    return vendorDTO;
+                })
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
     public VendorDTO createNewVendor(VendorDTO vendorDTO) {
-        return null;
+        return saveAndReturnDTO(vendorMapper.vendorDTOToVendor(vendorDTO));
     }
 
     @Override
     public VendorDTO saveVendorByDTO(Long id, VendorDTO vendorDTO) {
-        return null;
+        Vendor vendor = vendorMapper.vendorDTOToVendor(vendorDTO);
+        vendor.setId(id);
+        return saveAndReturnDTO(vendor);
     }
 
     @Override
     public VendorDTO patchVendor(Long id, VendorDTO vendorDTO) {
-        return null;
+        return vendorRepository.findById(id).map(vendor -> {
+
+            if (vendorDTO.getName() != null) {
+                vendor.setName(vendorDTO.getName());
+            }
+
+            return saveAndReturnDTO(vendor);
+        }).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
     public void deleteVendorById(Long id) {
-
+        vendorRepository.deleteById(id);
     }
 }
