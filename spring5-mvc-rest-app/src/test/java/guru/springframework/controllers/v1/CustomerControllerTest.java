@@ -5,6 +5,7 @@ import guru.springframework.model.CustomerDTO;
 import guru.springframework.services.CustomerService;
 import guru.springframework.services.ResourceNotFoundException;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -102,7 +103,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
         returnDTO.setLastName(customerDTO.getLastName());
         returnDTO.setCustomerUrl(CustomerController.BASE_URL + "/1");
 
-        when(customerService.createNewCustomer(customerDTO)).thenReturn(returnDTO);
+        when(customerService.createNewCustomer(any())).thenReturn(returnDTO);
 
         // when
         mockMvc.perform(post(CustomerController.BASE_URL)
