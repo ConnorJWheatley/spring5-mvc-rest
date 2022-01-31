@@ -6,7 +6,7 @@ import guru.springfamework.api.v1.model.VendorListDTO;
 import guru.springfamework.domain.Vendor;
 import guru.springfamework.repositories.VendorRepository;
 import org.junit.Before;
-import org.junit.Ignore;
+
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+
 
 /**
  * @Author: Connor Wheatley
@@ -48,7 +48,6 @@ public class VendorServiceImplTest {
         vendorService = new VendorServiceImpl(VendorMapper.INSTANCE, vendorRepository);
     }
 
-    @Ignore
     @Test
     public void getAllVendors() {
         //given

@@ -21,6 +21,6 @@ public class CustomerDTO {
     @Schema(description = "The customer's last name", required = true)
     private String lastName;
 
-    @JsonProperty("customer_url")
+    //@JsonProperty("customer_url")
     private String customerUrl;
 }
