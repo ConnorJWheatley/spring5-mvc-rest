@@ -6,7 +6,11 @@
     <groupId>guru.springfamework</groupId>
     <artifactId>spring5-mvc-rest</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <modules>
+        <module>rest-model</module>
+        <module>spring5-mvc-rest-app</module>
+    </modules>
+    <packaging>pom</packaging>
 
     <name>spring5-mvc-rest</name>
     <description>Demo project for Spring Boot</description>
